@@ -13,8 +13,8 @@ GOEXEC=${GOEXEC:-"go"}
 GOROOT=$GOROOT
 
 scpu=1 # 将 scpu 固定为 1
-taskset_less="taskset -c 0-$scpu"
-taskset_more="taskset -c $((scpu + 1))-$((nprocs - 1))"
+taskset_less="taskset -c 1"
+taskset_more="taskset -c 2"
 
 REPORT=${REPORT:-"$(date +%F-%H-%M)"}
 tee_cmd="tee -a output/${REPORT}.log"
