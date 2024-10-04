@@ -12,9 +12,14 @@ fi
 GOEXEC=${GOEXEC:-"go"}
 GOROOT=$GOROOT
 
-scpu=1 # 将 scpu 固定为 1
-taskset_less="taskset -c 1"
-taskset_more="taskset -c 2"
+# 计算 scpu 的值
+scpu=$((nprocs > 16 ? 3 : nprocs / 4 - 1)) # 最大值为 3 (4 个 CPU 核心)
+
+# 确保 scpu 至少为 0
+scpu=$((scpu < 0 ? 0 : scpu))
+
+taskset_less="taskset -c 0-$scpu"
+taskset_more="taskset -c $((scpu + 1))-$((nprocs - 1))"
 
 REPORT=${REPORT:-"$(date +%F-%H-%M)"}
 tee_cmd="tee -a output/${REPORT}.log"
