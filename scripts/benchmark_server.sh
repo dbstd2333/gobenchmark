@@ -8,7 +8,7 @@ concurrent=(30)
 header=(1024)
 repo=("hertz" "fasthttp" "gin" "fiber")
 ports=(8001 8002 8003 8004)
-serverIP="http://192.168.2.122"
+serverIP="http://127.0.0.1"
 
 . ./scripts/build_all.sh
 
